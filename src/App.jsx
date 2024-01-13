@@ -1,8 +1,35 @@
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import authService from "./appwrite/authService";
+import { login, logout } from "./store/authSlice";
+import { Footer, Header } from "./components";
+
 const App = () => {
-  return (
-    <div className=" w-full flex justify-center text-gray-600 font-bold text-4xl">
-      App
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    authService
+      .getCurrentUser()
+      .then((userData) => {
+        if (userData) {
+          dispatch(login());
+        } else {
+          dispatch(logout());
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  });
+  return !loading ? (
+    <div>
+      <Header />
+      TODO
+      <Footer />
     </div>
+  ) : (
+    <div>Loading...</div>
   );
 };
 
