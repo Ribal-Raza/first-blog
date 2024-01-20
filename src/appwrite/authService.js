@@ -12,6 +12,15 @@ export class AuthService {
     this.account = new Account(this.client);
   }
 
+  /**
+   * Creates a new user account.
+   *
+   * @param {object} data - The data required to create the user account.
+   * @param {string} data.email - The email address of the user.
+   * @param {string} data.password - The password for the user account.
+   * @param {string} [data.name] - The name of the user.
+   * @returns {object} The user account object if successful, or an error object.
+   */
   async createAccount({ email, password, name }) {
     try {
       const userAccount = await this.account.create(
@@ -30,6 +39,14 @@ export class AuthService {
     }
   }
 
+  /**
+   * Logs a user into their account.
+   *
+   * @param {object} data - The data required to log the user in.
+   * @param {string} data.email - The email address of the user.
+   * @param {string} data.password - The password for the user account.
+   * @returns {object} The user account object if successful, or an error object.
+   */
   async login({ email, password }) {
     try {
       return await this.account.createEmailSession(email, password);
@@ -38,6 +55,11 @@ export class AuthService {
     }
   }
 
+  /**
+   * Gets the currently logged in user.
+   *
+   * @returns {object} The user account object if successful, or an error object.
+   */
   async getCurrentUser() {
     try {
       return await this.account.get();
@@ -47,6 +69,11 @@ export class AuthService {
     return null;
   }
 
+  /**
+   * Logs a user out of their account.
+   *
+   * @returns {object} The user account object if successful, or an error object.
+   */
   async logout() {
     try {
       return await this.account.deleteSessions();

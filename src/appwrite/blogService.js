@@ -15,6 +15,19 @@ export class BlogService {
   }
 
   // Posts CRUD functions/methods
+
+  /**
+   * Creates a new post in the database.
+   *
+   * @param {object} data - Object containing the post data.
+   * @param {string} data.title - Title of the post.
+   * @param {string} data.content - Content of the post.
+   * @param {string} data.featuredImage - Featured image of the post.
+   * @param {string} data.slug - Unique slug of the post.
+   * @param {string} data.status - Status of the post (active/inactive).
+   * @param {string} data.userId - User ID of the author.
+   * @returns {object} - The created post data, or null if the post could not be created.
+   */
   async createPost({ title, content, slug, featuredImage, status, userId }) {
     try {
       return await this.databases.createDocument(
@@ -28,6 +41,17 @@ export class BlogService {
     }
   }
 
+  /**
+   * Updates a post in the database.
+   *
+   * @param {string} slug - Unique slug of the post to update.
+   * @param {object} data - Object containing the updated post data.
+   * @param {string} data.title - New title of the post.
+   * @param {string} data.content - New content of the post.
+   * @param {string} data.featuredImage - New featured image of the post.
+   * @param {string} data.status - New status of the post (active/inactive).
+   * @returns {object} - The updated post data, or null if the post does not exist.
+   */
   async updatePost(slug, { title, content, featuredImage, status }) {
     try {
       return await this.databases.updateDocument(
@@ -46,6 +70,12 @@ export class BlogService {
     }
   }
 
+  /**
+   * Deletes a post from the database.
+   *
+   * @param {string} slug - Unique slug of the post to delete.
+   * @returns {boolean} - Returns true if the post was deleted, false otherwise.
+   */
   async deletePost(slug) {
     try {
       await this.databases.deleteDocument(
@@ -60,6 +90,12 @@ export class BlogService {
     }
   }
 
+  /**
+   * Retrieves a single post by its unique slug.
+   *
+   * @param {string} slug - Unique slug of the post to retrieve.
+   * @returns {object} - The retrieved post data, or null if the post does not exist.
+   */
   async getPost(slug) {
     try {
       return await this.databases.getDocument(
@@ -72,6 +108,12 @@ export class BlogService {
     }
   }
 
+  /**
+   * Retrieves a list of posts based on the provided queries.
+   *
+   * @param {Query[]} [queries] - Array of queries to filter the posts by.
+   * @returns {Post[]} - Array of posts that match the provided queries.
+   */
   async getPosts(queries = [Query.equal("status", "active")]) {
     try {
       return await this.databases.listDocuments(
@@ -86,6 +128,13 @@ export class BlogService {
   }
 
   // File upload functions/methods
+
+  /**
+   * Uploads a file to the Appwrite storage.
+   *
+   * @param {File} file - The file to upload.
+   * @returns {object} - The uploaded file metadata.
+   */
   async uploadFile(file) {
     try {
       return await this.bucket.createFile(
@@ -98,6 +147,12 @@ export class BlogService {
     }
   }
 
+  /**
+   * Deletes a file from the Appwrite storage.
+   *
+   * @param {string} fileId - Unique ID of the file to delete.
+   * @returns {boolean} - Returns true if the file was deleted, false otherwise.
+   */
   async deleteFile(fileId) {
     try {
       await this.bucket.deleteFile(conf.appwriteBucketId, fileId);
@@ -108,6 +163,12 @@ export class BlogService {
     }
   }
 
+  /**
+   * Get file preview URL
+   *
+   * @param {string} fileId - file unique ID
+   * @returns {string} - file preview URL
+   */
   getFilePreview(fileId) {
     return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
   }
