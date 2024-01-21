@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Container } from "../index";
 import LogoutBtn from "../buttons/LogoutBtn";
 const Header = () => {
   const authStatus = useSelector((state) => state.status);
-
+  const navigate = useNavigate();
   const menuItems = [
     {
       name: "Home",
@@ -13,12 +13,12 @@ const Header = () => {
     },
     {
       name: "All Posts",
-      slug: "/",
+      slug: "/all-posts",
       active: authStatus,
     },
     {
       name: "Add Posts",
-      slug: "/",
+      slug: "/add-post",
       active: authStatus,
     },
   ];
@@ -54,12 +54,14 @@ const Header = () => {
               <Button
                 type="button"
                 className=" hover:bg-black/10 hover:text-black/40"
+                onClick={() => navigate("/signup")}
               >
                 Sign up
               </Button>
               <Button
                 type="button"
                 className=" hover:bg-black hover:text-white border border-black"
+                onClick={() => navigate("/login")}
               >
                 Login
               </Button>

@@ -94,7 +94,7 @@ const Signup = () => {
               <div>
                 <Button
                   type="submit"
-                  className="fleading-7 border border-black text-white hover:bg-black/80 w-full"
+                  className="fleading-7 border border-black text-black hover:bg-black/80 hover:text-white w-full"
                 >
                   Sign up
                 </Button>

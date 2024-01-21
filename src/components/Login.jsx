@@ -93,7 +93,7 @@ const Login = () => {
               <div>
                 <Button
                   type="submit"
-                  className="fleading-7 border border-black text-white hover:bg-black/80 w-full"
+                  className="fleading-7 border border-black text-black hover:text-white hover:bg-black/80 w-full"
                 >
                   Sign in
                 </Button>
